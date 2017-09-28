@@ -16,7 +16,9 @@ import retrofit2.Response;
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
 import th.co.yuphasuk.wanchalerm.liveat500px.adapter.PhotoListAdapter;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemCollectionDao;
+import th.co.yuphasuk.wanchalerm.liveat500px.manager.Contextor;
 import th.co.yuphasuk.wanchalerm.liveat500px.manager.HttpManager;
+import th.co.yuphasuk.wanchalerm.liveat500px.manager.PhotoListManager;
 
 
 /**
@@ -59,22 +61,23 @@ public class MainFragment extends Fragment {
 
                 if(response.isSuccessful()){
                     PhotoItemCollectionDao dao = response.body();
-                    Toast.makeText(getActivity(), dao.getData().get(0).getCaption(), Toast.LENGTH_SHORT).show();
+                    PhotoListManager.getInstance().setDao(dao);
+                    listAdapter.notifyDataSetChanged();
+                    Toast.makeText(Contextor.getInstance().getContext(), dao.getData().get(0).getCaption(), Toast.LENGTH_SHORT).show();
                 }
                 else{
                     // Handle
-                    try {
-                        Toast.makeText(getActivity(), response.errorBody().string(), Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
+                        Toast.makeText(Contextor.getInstance().getContext(), response.errorBody()+"", Toast.LENGTH_SHORT).show();
+
+
                 }
             }
 
             @Override
             public void onFailure(Call<PhotoItemCollectionDao> call, Throwable t) {
                 // Handle
-                    Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
