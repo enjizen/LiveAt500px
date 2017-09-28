@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemCollectionDao;
 
 /**
@@ -14,6 +15,9 @@ public interface ApiService {
 
     @POST("list")
     Call<PhotoItemCollectionDao> loadPhotoList();
+
+    @POST("list/after/{id}")
+    Call<PhotoItemCollectionDao> loadPhotoListAfterId(@Path("id") int id);
 
 
 
