@@ -1,5 +1,6 @@
 package th.co.yuphasuk.wanchalerm.liveat500px.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -8,11 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
+import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MainFragment;
+import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MoreInfoFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainFragment.FragmentListener {
 
    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -75,5 +79,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPhotoItemClicked(PhotoItemDao dao) {
+
+        FrameLayout moreInfoLayout = findViewById(R.id.moreInfoContainer);
+
+        if(moreInfoLayout == null){
+            // Moblie
+            Intent intent = new Intent(MainActivity.this, MoreInfoActivity.class);
+            intent.putExtra("dao",dao);
+            startActivity(intent);
+        }
+        else{
+
+            // Tablet
+            getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.moreInfoContainer, MoreInfoFragment.newInstance(dao))
+                                        .commit();
+        }
+
     }
 }

@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="th.co.yuphasuk.wanchalerm.liveat500px">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -19,9 +20,13 @@
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="th.co.yuphasuk.wanchalerm.liveat500px.configuration.GlideConfiguration"
+            android:value="GlideModule" />
 
-        <meta-data android:name="th.co.yuphasuk.wanchalerm.liveat500px.configuration.GlideConfiguration"
-                        android:value="GlideModule"/>
+        <activity android:name=".activity.MoreInfoActivity"
+                android:theme="@style/AppThemeWithActionBar"
+            />
     </application>
 
 </manifest>

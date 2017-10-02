@@ -1,25 +1,38 @@
 package th.co.yuphasuk.wanchalerm.liveat500px.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
+import th.co.yuphasuk.wanchalerm.liveat500px.activity.MoreInfoActivity;
 import th.co.yuphasuk.wanchalerm.liveat500px.adapter.PhotoListAdapter;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemCollectionDao;
+import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
+import th.co.yuphasuk.wanchalerm.liveat500px.datatype.MutableInteger;
 import th.co.yuphasuk.wanchalerm.liveat500px.manager.Contextor;
 import th.co.yuphasuk.wanchalerm.liveat500px.manager.HttpManager;
 import th.co.yuphasuk.wanchalerm.liveat500px.manager.PhotoListManager;
@@ -30,7 +43,16 @@ import th.co.yuphasuk.wanchalerm.liveat500px.manager.PhotoListManager;
  */
 public class MainFragment extends Fragment {
 
-    // Variables
+    /***********************
+     *
+     * Variables
+     *
+     ************************/
+
+    public interface FragmentListener{
+        void onPhotoItemClicked(PhotoItemDao dao);
+    }
+
 
     private ListView listView;
     private PhotoListAdapter listAdapter;
@@ -39,9 +61,13 @@ public class MainFragment extends Fragment {
     private PhotoListManager photoListManager;
     private Button btnNewPhoto;
 
-    /**
-     * Function s
-     */
+    private MutableInteger lastPositionInteger;
+
+    /**********************
+     *
+     * Functions
+     *
+     **********************/
 
     public MainFragment() {
         super();
@@ -74,10 +100,6 @@ public class MainFragment extends Fragment {
 
     }
 
-    private void init(Bundle savedInstanceState) {
-        photoListManager = new PhotoListManager();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,6 +107,16 @@ public class MainFragment extends Fragment {
         initInstances(rootView,savedInstanceState);
         return rootView;
     }
+
+
+    private void init(Bundle savedInstanceState) {
+        photoListManager = new PhotoListManager();
+        lastPositionInteger = new MutableInteger(-1);
+
+
+
+    }
+
 
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
@@ -95,9 +127,10 @@ public class MainFragment extends Fragment {
 
         listView = rootView.findViewById(R.id.list_view);
 
-        listAdapter = new PhotoListAdapter();
+        listAdapter = new PhotoListAdapter(lastPositionInteger);
         listAdapter.setDao(photoListManager.getDao());
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(listViewItemClickListener);
 
         swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
 
@@ -165,8 +198,9 @@ public class MainFragment extends Fragment {
         super.onSaveInstanceState(outState);
         // Save Instance State here
 
-        outState.putBundle("photoListManager",
-                photoListManager.onSaveInstanceState());
+        outState.putBundle("photoListManager", photoListManager.onSaveInstanceState());
+
+        outState.putBundle("lastPositionInteger",lastPositionInteger.onSaveInstanceState());
 
 
 
@@ -178,6 +212,7 @@ public class MainFragment extends Fragment {
 
         photoListManager.onRestoreInstanceState(savedInstanceState.getBundle("photoListManager"));
 
+        lastPositionInteger.onRestoreInstanceState(savedInstanceState.getBundle("lastPositionInteger"));
 
     }
 
@@ -209,9 +244,11 @@ public class MainFragment extends Fragment {
         Toast.makeText(Contextor.getInstance().getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    /**
+    /*****************
+     *
      * Listener Zone
-     */
+     *
+     **********************/
 
     View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
@@ -259,11 +296,26 @@ public class MainFragment extends Fragment {
         }
     };
 
+    AdapterView.OnItemClickListener listViewItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-    /************
+            if(position < photoListManager.getCount()) {
+
+                PhotoItemDao dao = photoListManager.getDao().getData().get(position);
+
+                FragmentListener listener = (FragmentListener) getActivity();
+                listener.onPhotoItemClicked(dao);
+            }
+        }
+    };
+
+
+    /**********************************
      *
      * Inner Class
-     *********/
+     *
+     ********************************/
 
 
     class PhotoListLoadCallBack implements Callback<PhotoItemCollectionDao> {
