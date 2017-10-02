@@ -12,17 +12,19 @@
         <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
+        android:id="@+id/btn_new_photo"
         android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Photo"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/shap_round_rect_button_blue"
+        android:background="@drawable/selector_btn_up"
         android:textColor="@android:color/white"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

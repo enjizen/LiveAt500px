@@ -1,5 +1,8 @@
 package th.co.yuphasuk.wanchalerm.liveat500px.dao;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import java.util.List;
  * Created by streami.t.mobiledeveloper1 on 9/27/2017 AD.
  */
 
-public class PhotoItemDao {
+public class PhotoItemDao implements Parcelable {
 
     @SerializedName("id")
     private int id;
@@ -56,6 +59,71 @@ public class PhotoItemDao {
 
     @SerializedName("aperture")
     private String aperture;
+
+    public PhotoItemDao(){
+
+    }
+
+    protected PhotoItemDao(Parcel in) {
+        id = in.readInt();
+        link = in.readString();
+        imageUrl = in.readString();
+        caption = in.readString();
+        if (in.readByte() == 0) {
+            userId = null;
+        } else {
+            userId = in.readInt();
+        }
+        username = in.readString();
+        profilePicture = in.readString();
+        tags = in.createStringArrayList();
+        camera = in.readString();
+        lens = in.readString();
+        focalLenght = in.readString();
+        iso = in.readString();
+        shutterSpeed = in.readString();
+        aperture = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(link);
+        dest.writeString(imageUrl);
+        dest.writeString(caption);
+        if (userId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(userId);
+        }
+        dest.writeString(username);
+        dest.writeString(profilePicture);
+        dest.writeStringList(tags);
+        dest.writeString(camera);
+        dest.writeString(lens);
+        dest.writeString(focalLenght);
+        dest.writeString(iso);
+        dest.writeString(shutterSpeed);
+        dest.writeString(aperture);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<PhotoItemDao> CREATOR = new Creator<PhotoItemDao>() {
+        @Override
+        public PhotoItemDao createFromParcel(Parcel in) {
+            return new PhotoItemDao(in);
+        }
+
+        @Override
+        public PhotoItemDao[] newArray(int size) {
+            return new PhotoItemDao[size];
+        }
+    };
 
     public int getId() {
         return id;

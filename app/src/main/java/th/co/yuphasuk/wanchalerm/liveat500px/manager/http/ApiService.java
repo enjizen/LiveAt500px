@@ -1,7 +1,5 @@
 package th.co.yuphasuk.wanchalerm.liveat500px.manager.http;
 
-import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -18,6 +16,11 @@ public interface ApiService {
 
     @POST("list/after/{id}")
     Call<PhotoItemCollectionDao> loadPhotoListAfterId(@Path("id") int id);
+
+    @POST("list/before/{id}")
+    Call<PhotoItemCollectionDao> loadPhotoListBeforeId(@Path("id") int id);
+
+
 
 
 
