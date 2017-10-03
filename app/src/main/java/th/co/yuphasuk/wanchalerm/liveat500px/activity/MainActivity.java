@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.IntentEnum;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MainFragment;
 import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MoreInfoFragment;
@@ -37,11 +38,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
     }
 
     private void initInstances() {
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar =  findViewById(R.id.tool_bar);
 
         setSupportActionBar(toolbar);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout =  findViewById(R.id.drawer_layout);
 
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
         if(moreInfoLayout == null){
             // Moblie
             Intent intent = new Intent(MainActivity.this, MoreInfoActivity.class);
-            intent.putExtra("dao",dao);
+            intent.putExtra(IntentEnum.PHOTO_ITEM_DAO.toString(),dao);
             startActivity(intent);
         }
         else{

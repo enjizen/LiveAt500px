@@ -1,13 +1,9 @@
 package th.co.yuphasuk.wanchalerm.liveat500px.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +15,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
-import th.co.yuphasuk.wanchalerm.liveat500px.activity.MoreInfoActivity;
 import th.co.yuphasuk.wanchalerm.liveat500px.adapter.PhotoListAdapter;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemCollectionDao;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
@@ -62,6 +53,11 @@ public class MainFragment extends Fragment {
     private Button btnNewPhoto;
 
     private MutableInteger lastPositionInteger;
+
+
+    // Variable Final
+    private final String PHOTO_LIST_MANAGER = "photo list manager";
+    private final String LAST_POSITION_INTEGER = "last position integer";
 
     /**********************
      *
@@ -198,9 +194,9 @@ public class MainFragment extends Fragment {
         super.onSaveInstanceState(outState);
         // Save Instance State here
 
-        outState.putBundle("photoListManager", photoListManager.onSaveInstanceState());
+        outState.putBundle(PHOTO_LIST_MANAGER, photoListManager.onSaveInstanceState());
 
-        outState.putBundle("lastPositionInteger",lastPositionInteger.onSaveInstanceState());
+        outState.putBundle(LAST_POSITION_INTEGER,lastPositionInteger.onSaveInstanceState());
 
 
 
@@ -210,9 +206,9 @@ public class MainFragment extends Fragment {
     private void onRestoreInstanceState(Bundle savedInstanceState){
         // Restore
 
-        photoListManager.onRestoreInstanceState(savedInstanceState.getBundle("photoListManager"));
+        photoListManager.onRestoreInstanceState(savedInstanceState.getBundle(PHOTO_LIST_MANAGER));
 
-        lastPositionInteger.onRestoreInstanceState(savedInstanceState.getBundle("lastPositionInteger"));
+        lastPositionInteger.onRestoreInstanceState(savedInstanceState.getBundle(LAST_POSITION_INTEGER));
 
     }
 
@@ -367,7 +363,7 @@ public class MainFragment extends Fragment {
                     }
                 }
 
-                showToast("Load completed");
+                showToast(getString(R.string.load_completed));
             } else {
                 // Handle
 

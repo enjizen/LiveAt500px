@@ -2,10 +2,10 @@ package th.co.yuphasuk.wanchalerm.liveat500px.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.IntentEnum;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MoreInfoFragment;
 
@@ -18,7 +18,7 @@ public class MoreInfoActivity extends AppCompatActivity {
 
         initInstances();
 
-        PhotoItemDao dao = getIntent().getParcelableExtra("dao");
+        PhotoItemDao dao = getIntent().getParcelableExtra(IntentEnum.PHOTO_ITEM_DAO.toString());
 
 
         if(savedInstanceState == null){

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentEnum;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 
 
@@ -25,7 +26,7 @@ public class PhotoTagsFragment extends Fragment {
     public static PhotoTagsFragment newInstance(PhotoItemDao dao) {
         PhotoTagsFragment fragment = new PhotoTagsFragment();
         Bundle args = new Bundle();
-        args.putParcelable("dao", dao);
+        args.putParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString(), dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,7 +36,7 @@ public class PhotoTagsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
 
-        dao = getArguments().getParcelable("dao");
+        dao = getArguments().getParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString());
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);

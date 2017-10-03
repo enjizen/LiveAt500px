@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentEnum;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 
 
@@ -33,7 +34,7 @@ public class PhotoSummaryFragment extends Fragment {
     public static PhotoSummaryFragment newInstance(PhotoItemDao dao) {
         PhotoSummaryFragment fragment = new PhotoSummaryFragment();
         Bundle args = new Bundle();
-        args.putParcelable("dao", dao);
+        args.putParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString(), dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,7 +45,7 @@ public class PhotoSummaryFragment extends Fragment {
         init(savedInstanceState);
 
 
-        dao = getArguments().getParcelable("dao");
+        dao = getArguments().getParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString());
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);

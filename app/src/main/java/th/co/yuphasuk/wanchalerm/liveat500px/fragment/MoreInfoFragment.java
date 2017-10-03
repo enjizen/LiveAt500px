@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentEnum;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 import th.co.yuphasuk.wanchalerm.liveat500px.view.SlidingTabLayout;
 
@@ -39,7 +40,7 @@ public class MoreInfoFragment extends Fragment {
     public static MoreInfoFragment newInstance(PhotoItemDao dao) {
         MoreInfoFragment fragment = new MoreInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelable("dao", dao);
+        args.putParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString(), dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,7 +50,7 @@ public class MoreInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
 
-        dao = getArguments().getParcelable("dao");
+        dao = getArguments().getParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString());
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
@@ -173,8 +174,8 @@ public class MoreInfoFragment extends Fragment {
 
     private Intent getShareIntent(){
         Intent intent = new Intent(Intent.ACTION_SEND);
-        //intent.setType("text/plain");
-        intent.setType("image/jpeg");
+        intent.setType("text/plain");
+        //intent.setType("image/jpeg");
         intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
         intent.putExtra(Intent.EXTRA_TEXT, "Extra Text");
         return intent;
