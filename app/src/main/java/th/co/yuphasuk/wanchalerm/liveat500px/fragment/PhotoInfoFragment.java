@@ -6,10 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
-import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentEnum;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentName;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
+import th.co.yuphasuk.wanchalerm.liveat500px.util.ConvertImageUrlUtil;
+import th.co.yuphasuk.wanchalerm.liveat500px.util.LogUtil;
 
 
 /**
@@ -18,6 +22,8 @@ import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 public class PhotoInfoFragment extends Fragment {
 
     private PhotoItemDao dao;
+    private ImageView imageProfile;
+    private TextView name;
 
     public PhotoInfoFragment() {
         super();
@@ -26,7 +32,7 @@ public class PhotoInfoFragment extends Fragment {
     public static PhotoInfoFragment newInstance(PhotoItemDao dao) {
         PhotoInfoFragment fragment = new PhotoInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString(), dao);
+        args.putParcelable(ArgumentName.PHOTO_ITEM_DAO.toString(), dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,7 +42,7 @@ public class PhotoInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
 
-        dao = getArguments().getParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString());
+        dao = getArguments().getParcelable(ArgumentName.PHOTO_ITEM_DAO.toString());
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
@@ -60,6 +66,17 @@ public class PhotoInfoFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
+
+        imageProfile = rootView.findViewById(R.id.image_profile);
+        name = rootView.findViewById(R.id.name);
+
+
+
+        // set data here
+
+        ConvertImageUrlUtil.getInstance().convertToImageView(dao.getProfilePicture(),imageProfile);
+        name.setText(dao.getUsername());
+
     }
 
     @Override

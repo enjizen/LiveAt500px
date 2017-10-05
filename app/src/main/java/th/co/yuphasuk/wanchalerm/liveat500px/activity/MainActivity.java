@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
-import th.co.yuphasuk.wanchalerm.liveat500px.constant.IntentEnum;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.IntentName;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MainFragment;
 import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MoreInfoFragment;
@@ -90,8 +90,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
         if(moreInfoLayout == null){
             // Moblie
             Intent intent = new Intent(MainActivity.this, MoreInfoActivity.class);
-            intent.putExtra(IntentEnum.PHOTO_ITEM_DAO.toString(),dao);
+            intent.putExtra(IntentName.PHOTO_ITEM_DAO.toString(),dao);
             startActivity(intent);
+
         }
         else{
 

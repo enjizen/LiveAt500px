@@ -5,6 +5,7 @@
     <com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView
         android:id="@+id/iv_img"
         android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

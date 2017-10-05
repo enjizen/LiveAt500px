@@ -7,13 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
-import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentEnum;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentName;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 
 
@@ -26,6 +27,7 @@ public class PhotoSummaryFragment extends Fragment {
     private TextView tvName;
     private TextView tvDiscription;
     private ImageView ivImg;
+    private LinearLayout bottomBar;
 
     public PhotoSummaryFragment() {
         super();
@@ -34,7 +36,7 @@ public class PhotoSummaryFragment extends Fragment {
     public static PhotoSummaryFragment newInstance(PhotoItemDao dao) {
         PhotoSummaryFragment fragment = new PhotoSummaryFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString(), dao);
+        args.putParcelable(ArgumentName.PHOTO_ITEM_DAO.toString(), dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +47,7 @@ public class PhotoSummaryFragment extends Fragment {
         init(savedInstanceState);
 
 
-        dao = getArguments().getParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString());
+        dao = getArguments().getParcelable(ArgumentName.PHOTO_ITEM_DAO.toString());
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
@@ -73,6 +75,11 @@ public class PhotoSummaryFragment extends Fragment {
         ivImg = rootView.findViewById(R.id.iv_img);
         tvName = rootView.findViewById(R.id.tv_name);
         tvDiscription = rootView.findViewById(R.id.tv_description);
+        bottomBar = rootView.findViewById(R.id.layout_bottom_bar);
+
+
+
+        // Set up data
 
         tvName.setText(dao.getCaption());
         tvDiscription.setText(dao.getUsername() + "\n" + dao.getCamera());

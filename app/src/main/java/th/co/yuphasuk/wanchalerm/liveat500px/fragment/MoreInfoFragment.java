@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
@@ -15,10 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
-import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentEnum;
+import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentName;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
 import th.co.yuphasuk.wanchalerm.liveat500px.view.SlidingTabLayout;
 
@@ -40,7 +38,7 @@ public class MoreInfoFragment extends Fragment {
     public static MoreInfoFragment newInstance(PhotoItemDao dao) {
         MoreInfoFragment fragment = new MoreInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString(), dao);
+        args.putParcelable(ArgumentName.PHOTO_ITEM_DAO.toString(), dao);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +48,7 @@ public class MoreInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
 
-        dao = getArguments().getParcelable(ArgumentEnum.PHOTO_ITEM_DAO.toString());
+        dao = getArguments().getParcelable(ArgumentName.PHOTO_ITEM_DAO.toString());
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
