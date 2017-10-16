@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
 import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentName;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
+import th.co.yuphasuk.wanchalerm.liveat500px.util.NullSafeUtils;
 import th.co.yuphasuk.wanchalerm.liveat500px.view.SlidingTabLayout;
 
 
@@ -75,6 +76,8 @@ public class MoreInfoFragment extends Fragment {
         //       in onSavedInstanceState
 
         viewPager = rootView.findViewById(R.id.viewPager);
+
+
 
 
        /* viewPager.setAdapter(new PagerAdapter() {

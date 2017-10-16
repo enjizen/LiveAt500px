@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 public class FragmentTemplateFull extends Fragment {
 
     public FragmentTemplateFull() {
@@ -39,9 +36,13 @@ public class FragmentTemplateFull extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        initInstances(rootView, savedInstanceState);
+        bindWidgets(rootView);
+        setUpEvent();
+        setDataView(savedInstanceState);
         return rootView;
     }
+
+
 
     @SuppressWarnings("UnusedParameters")
     private void init(Bundle savedInstanceState) {
@@ -49,11 +50,26 @@ public class FragmentTemplateFull extends Fragment {
     }
 
     @SuppressWarnings("UnusedParameters")
-    private void initInstances(View rootView, Bundle savedInstanceState) {
+    private void bindWidgets(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
     }
+
+    private void setDataView(Bundle savedInstanceState) {
+        // Init Data to View  after bindWidgets
+        // Note: State of variable initialized here could not be saved
+        //       in onSavedInstanceState
+
+
+    }
+
+    private void setUpEvent() {
+        // Set Event Listener
+
+    }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

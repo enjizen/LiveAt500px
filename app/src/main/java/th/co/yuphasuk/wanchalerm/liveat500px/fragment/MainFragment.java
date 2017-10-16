@@ -29,9 +29,6 @@ import th.co.yuphasuk.wanchalerm.liveat500px.manager.HttpManager;
 import th.co.yuphasuk.wanchalerm.liveat500px.manager.PhotoListManager;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 public class MainFragment extends Fragment {
 
     /***********************
@@ -81,7 +78,7 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Initialize Fragment lavel
+        //Initialize Fragment level
 
         init(savedInstanceState);
 
@@ -100,43 +97,71 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        initInstances(rootView,savedInstanceState);
+        bindWidgets(rootView);
+        setUpEvent();
+        setDataView(savedInstanceState);
         return rootView;
     }
 
 
+    /*****************************
+     *
+     * new Object Variable
+     *
+     * @param savedInstanceState
+     *
+     *****************************/
     private void init(Bundle savedInstanceState) {
         photoListManager = new PhotoListManager();
         lastPositionInteger = new MutableInteger(-1);
-
-
-
     }
 
 
-    private void initInstances(View rootView, Bundle savedInstanceState) {
+    /***************************
+     * Inflate View Layout
+     *
+     * @param rootView
+     ***************************/
+
+    private void bindWidgets(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
 
 
         btnNewPhoto = rootView.findViewById(R.id.btn_new_photo);
-        btnNewPhoto.setOnClickListener(buttonClickListener);
-
         listView = rootView.findViewById(R.id.list_view);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
 
+    }
+
+
+    /*********************************
+     *
+     * Set Data To View
+     * @param savedInstanceState
+     *
+     **********************************/
+
+    private void setDataView(Bundle savedInstanceState) {
         listAdapter = new PhotoListAdapter(lastPositionInteger);
         listAdapter.setDao(photoListManager.getDao());
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(listViewItemClickListener);
 
-        swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
-
-        swipeRefreshLayout.setOnRefreshListener(pullToRefreshListener);
-
-        listView.setOnScrollListener(listViewScrollListener);
-
         if(savedInstanceState == null) {
             refreshData();
         }
+    }
+
+    /******************************
+     *
+     * Set Event Listener
+     *
+     * ****************************/
+
+    private void setUpEvent() {
+        btnNewPhoto.setOnClickListener(buttonClickListener);
+        swipeRefreshLayout.setOnRefreshListener(pullToRefreshListener);
+        listView.setOnScrollListener(listViewScrollListener);
     }
 
     private void refreshData() {
@@ -316,14 +341,14 @@ public class MainFragment extends Fragment {
 
     class PhotoListLoadCallBack implements Callback<PhotoItemCollectionDao> {
 
-        public static final int MODE_RELOAD = 1;
-        public static final int MODE_RELOAD_NEWER = 2;
-        public static final int MODE_RELOAD_MORE = 3;
+        private static final int MODE_RELOAD = 1;
+        private static final int MODE_RELOAD_NEWER = 2;
+        private static final int MODE_RELOAD_MORE = 3;
 
 
         private int mode;
 
-        public PhotoListLoadCallBack(int mode) {
+        private PhotoListLoadCallBack(int mode) {
             this.mode = mode;
         }
 
@@ -363,7 +388,7 @@ public class MainFragment extends Fragment {
                     }
                 }
 
-                showToast(getString(R.string.load_completed));
+//                showToast(getString(R.string.load_completed));
             } else {
                 // Handle
 

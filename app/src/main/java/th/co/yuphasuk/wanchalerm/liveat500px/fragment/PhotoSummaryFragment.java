@@ -82,7 +82,7 @@ public class PhotoSummaryFragment extends Fragment {
         // Set up data
 
         tvName.setText(dao.getCaption());
-        tvDiscription.setText(dao.getUsername() + "\n" + dao.getCamera());
+        tvDiscription.setText(String.format("%s\n%s", dao.getUsername(), dao.getCamera()));
         Glide.with(PhotoSummaryFragment.this)
                 .load(dao.getImageUrl())
                 .placeholder(R.drawable.loading)

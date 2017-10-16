@@ -19,7 +19,7 @@ import th.co.yuphasuk.wanchalerm.liveat500px.fragment.MoreInfoFragment;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.FragmentListener {
 
-   private DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private Toolbar toolbar;
 
