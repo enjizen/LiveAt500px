@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "930272778946-bns86ao2qdg0nombf3cocna329uh1le3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "th.co.yuphasuk.wanchalerm.liveat500px",
+            "certificate_hash": "970f8665a111cfd93196c8d90b026f2ad3309374"
+          }
+        },
+        {
+          "client_id": "930272778946-28bs6b0q9tkb3rnfa5c6l2abdqrhvs1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "th.co.yuphasuk.wanchalerm.liveat500px",
+            "certificate_hash": "acf6a2a7aa384f205d9f5e2cb3260d65c994f850"
+          }
+        },
+        {
           "client_id": "930272778946-atp6b88o8cd928884aoq44p80jam8tk3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

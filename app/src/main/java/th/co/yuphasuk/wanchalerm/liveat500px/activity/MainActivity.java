@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
 import th.co.yuphasuk.wanchalerm.liveat500px.constant.IntentName;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private Toolbar toolbar;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,19 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
                                         .add(R.id.contentContainer, MainFragment.newInstance())
                                         .commit();
         }
+
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        mFirebaseAnalytics.setUserProperty("favorite_food", "Noodle");
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Tree");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     private void initInstances() {
