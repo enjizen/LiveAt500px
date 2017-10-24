@@ -33,36 +33,36 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
 
         initInstances();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                                        .add(R.id.contentContainer, MainFragment.newInstance())
-                                        .commit();
+                    .add(R.id.contentContainer, MainFragment.newInstance())
+                    .commit();
         }
 
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        mFirebaseAnalytics.setUserProperty("favorite_food", "Noodle");
+       // mFirebaseAnalytics.setUserProperty("favorite_food", "Noodle");
 
 
-        Bundle bundle = new Bundle();
+     /*   Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1");
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Tree");
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);*/
     }
 
     private void initInstances() {
-        toolbar =  findViewById(R.id.tool_bar);
+        toolbar = findViewById(R.id.tool_bar);
 
         setSupportActionBar(toolbar);
 
-        drawerLayout =  findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(
-                MainActivity.this,drawerLayout,
+                MainActivity.this, drawerLayout,
                 R.string.open_drawer,
                 R.string.close_drawer);
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
@@ -103,19 +103,17 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Frag
 
         FrameLayout moreInfoLayout = findViewById(R.id.moreInfoContainer);
 
-        if(moreInfoLayout == null){
-            // Moblie
+        if (moreInfoLayout == null) {
+            // Mobile
             Intent intent = new Intent(MainActivity.this, MoreInfoActivity.class);
-            intent.putExtra(IntentName.PHOTO_ITEM_DAO.toString(),dao);
+            intent.putExtra(IntentName.PHOTO_ITEM_DAO.toString(), dao);
             startActivity(intent);
 
-        }
-        else{
-
+        } else {
             // Tablet
             getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.moreInfoContainer, MoreInfoFragment.newInstance(dao))
-                                        .commit();
+                    .replace(R.id.moreInfoContainer, MoreInfoFragment.newInstance(dao))
+                    .commit();
         }
 
     }

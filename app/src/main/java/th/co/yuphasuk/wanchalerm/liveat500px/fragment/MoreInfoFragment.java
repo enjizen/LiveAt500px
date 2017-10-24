@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import th.co.yuphasuk.wanchalerm.liveat500px.R;
 import th.co.yuphasuk.wanchalerm.liveat500px.constant.ArgumentName;
 import th.co.yuphasuk.wanchalerm.liveat500px.dao.PhotoItemDao;
@@ -31,6 +33,8 @@ public class MoreInfoFragment extends Fragment {
     private SlidingTabLayout slidingTabLayout;
 
     private PhotoItemDao dao;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public MoreInfoFragment() {
         super();
@@ -50,6 +54,17 @@ public class MoreInfoFragment extends Fragment {
         init(savedInstanceState);
 
         dao = getArguments().getParcelable(ArgumentName.PHOTO_ITEM_DAO.toString());
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+
+        mFirebaseAnalytics.setUserProperty("image_name",dao.getCaption());
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(dao.getId()));
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, dao.getCaption());
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
