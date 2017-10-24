@@ -13,20 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
-            <intent-filter>
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <meta-data
             android:name="th.co.yuphasuk.wanchalerm.liveat500px.configuration.GlideConfiguration"
             android:value="GlideModule" />
 
-        <activity android:name=".activity.MoreInfoActivity"
-                android:theme="@style/AppThemeWithActionBar"
-            />
+        <activity
+            android:name=".activity.MoreInfoActivity"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity android:name=".activity.Main2Activity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

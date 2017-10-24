@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorOverlay">#80000000</color>
+    <color name="colorOverlasy">#0000ffff</color>
 </resources>

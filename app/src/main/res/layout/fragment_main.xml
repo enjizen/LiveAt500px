@@ -4,27 +4,53 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+     <!--<Switch
+          android:id="@+id/mySwitch"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:thumb="@drawable/customswitchselector"
+          android:track="@drawable/switch_thumb_selector"
+          android:textOn="EN"
+          android:textOff="ไทย"
+          android:showText="true"
+          android:switchTextAppearance="@style/SwitchTextAppearance"
+          android:layout_centerHorizontal="true"/>-->
+
+    <th.co.yuphasuk.wanchalerm.liveat500px.view.SwitchViewGroup
+        android:id="@+id/mySwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:showText="true"
+        android:switchTextAppearance="@style/SwitchTextAppearance"
+        android:textOff="ไทย"
+        android:textOn="EN"
+        android:thumb="@drawable/customswitchselector"
+        android:track="@drawable/switch_thumb_selector" />
+
+
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/mySwitch">
 
         <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
         android:id="@+id/btn_new_photo"
-        android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Photo"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
         android:background="@drawable/selector_btn_up"
+        android:text="New Photo"
         android:textColor="@android:color/white"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 </RelativeLayout>
